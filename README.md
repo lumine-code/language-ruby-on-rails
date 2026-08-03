@@ -8,6 +8,10 @@ Ruby on Rails language support.
 - **Syntax highlighting**: full grammar coverage for Rails HTML, JavaScript, RJS, and SQL files.
 - **Snippets**: shortcuts for common Rails constructs.
 
+## Installation
+
+To install `language-ruby-on-rails` search for _language-ruby-on-rails_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/language-ruby-on-rails`.
+
 ## Contributing
 
 Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!
