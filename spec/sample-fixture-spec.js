@@ -4,17 +4,21 @@ const path = require("path");
 // The fixtures beside this file are plain samples — the files to open when you
 // want to look at the highlighting rather than assert on it.
 //
-// They also record something worth knowing: for its two headline file types
-// this package's grammars do not win. `.rb` scores 2.01 for both
-// `source.ruby` and `source.ruby.rails`, and `.html.erb` scores 8.01 for both
-// `text.html.erb` and `text.html.ruby` — exact ties, which selectGrammar
-// resolves by enumeration order, and language-ruby comes first. Turning
-// Tree-sitter on only widens the gap, since it adds 0.1 to the plain grammars
-// and this package has none. The Rails grammars are reached today only for the
-// file types language-ruby does not also claim, such as `.rxml`.
+// They also record how this package's grammars are reached, which is worth
+// knowing because it is not obvious.
 //
-// Nothing here asserts a preference either way; it asserts what the editor
-// actually does, so a deliberate change to that shows up as a failure here.
+// `.rb` and `.html.erb` are shared with plain Ruby and plain ERB and used to
+// score identically, so the winner was whichever package activated first. A
+// content regex settles that: a Rails base class or DSL call earns 0.05, and
+// its absence costs 0.05, so a Rails file wins and a plain one no longer does.
+//
+// It does not win against Tree-sitter, and cannot: preferring Tree-sitter is
+// worth 0.1, and these grammars are TextMate. Under the default settings a
+// Rails file therefore still opens as plain Ruby or plain ERB, which is
+// defensible — the Tree-sitter grammar is the better base, and what this
+// package adds over it is a set of DSL scopes.
+//
+// `.rjs` and `.rxml` are Rails-only formats and win outright.
 
 describe("Rails sample fixtures", () => {
   beforeEach(async () => {
@@ -57,6 +61,41 @@ describe("Rails sample fixtures", () => {
 
   it("wins the file types language-ruby does not also claim", () => {
     expect(atom.grammars.selectGrammar("report.rxml", "").scopeName).toBe("source.ruby.rails");
+  });
+
+  it("wins .rjs, which is a Rails-only format", () => {
+    // language-ruby used to claim `rjs` too, which made this a tie decided by
+    // activation order.
+    expect(atom.grammars.selectGrammar("update.rjs", "page[:x]").scopeName).toBe(
+      "source.ruby.rails.rjs",
+    );
+  });
+
+  describe("with TextMate grammars preferred", () => {
+    const railsModel = "class User < ApplicationRecord\n  has_many :orders\nend\n";
+    const plainRuby = "class Plain\n  def run\n    1\n  end\nend\n";
+    const railsView = "<%= link_to 'x', root_path %>\n";
+    const plainErb = "<p>hello</p>\n";
+
+    beforeEach(() => atom.config.set("language.useTreeSitterParsers", false));
+
+    it("claims a file that looks like Rails", () => {
+      expect(atom.grammars.selectGrammar("user.rb", railsModel).scopeName).toBe(
+        "source.ruby.rails",
+      );
+      expect(atom.grammars.selectGrammar("show.html.erb", railsView).scopeName).toBe(
+        "text.html.ruby",
+      );
+    });
+
+    it("leaves a file that does not", () => {
+      // The content regex costs 0.05 when it fails, so plain Ruby and plain ERB
+      // now lose this grammar rather than winning it on activation order.
+      expect(atom.grammars.selectGrammar("plain.rb", plainRuby).scopeName).toBe("source.ruby");
+      expect(atom.grammars.selectGrammar("page.html.erb", plainErb).scopeName).toBe(
+        "text.html.erb",
+      );
+    });
   });
 
   describe("the sample files", () => {
