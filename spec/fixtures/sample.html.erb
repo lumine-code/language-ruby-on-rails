@@ -1,0 +1,38 @@
+<%# A Rails view sample, kept idiomatic so it is worth opening in the editor. %>
+
+<% content_for :title do %>
+  <%= @user.display_name %>
+<% end %>
+
+<article class="user" id="<%= dom_id(@user) %>">
+  <h1><%= @user.display_name %></h1>
+
+  <dl>
+    <dt>Email</dt>
+    <dd><%= mail_to @user.email %></dd>
+
+    <dt>Joined</dt>
+    <dd><%= time_ago_in_words(@user.created_at) %> ago</dd>
+  </dl>
+
+  <% if @user.orders.any? %>
+    <ul class="orders">
+      <% @user.orders.ordered.each do |order| %>
+        <li>
+          <%= link_to order.reference, order_path(order), class: "order" %>
+          &mdash; <%= number_to_currency(order.total) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="empty"><%= t(".no_orders") %></p>
+  <% end %>
+
+  <%= form_with model: @user, local: true do |form| %>
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+    <%= form.submit "Save" %>
+  <% end %>
+
+  <%= render partial: "shared/footer", locals: { year: Date.current.year } %>
+</article>
