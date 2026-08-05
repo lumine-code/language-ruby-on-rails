@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "atom": "*",
+    "lumine": "*",
     "node": "*"
   },
   "repository": "https://github.com/lumine-code/language-ruby-on-rails",
