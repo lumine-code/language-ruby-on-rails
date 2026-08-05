@@ -11,6 +11,11 @@
     "jbuilder"
   ],
   "license": "MIT",
+  "files": [
+    "grammars",
+    "snippets",
+    "spec"
+  ],
   "engines": {
     "lumine": "^1.0.0",
     "node": "*"
