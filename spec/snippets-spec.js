@@ -2,9 +2,9 @@ describe("Ruby on Rails snippets", () => {
   let grammar = null;
 
   beforeEach(() => {
-    waitsForPromise(() => atom.packages.activatePackage("language-ruby-on-rails"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-ruby-on-rails"));
 
-    runs(() => (grammar = atom.grammars.grammarForScopeName("source.ruby.rails")));
+    runs(() => (grammar = lumine.grammars.grammarForScopeName("source.ruby.rails")));
   });
 
   it("tokenizes ActionMailer::Base", () => {

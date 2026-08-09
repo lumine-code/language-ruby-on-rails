@@ -22,9 +22,9 @@ const path = require("path");
 
 describe("Rails sample fixtures", () => {
   beforeEach(async () => {
-    await atom.packages.activatePackage("language-ruby");
-    await atom.packages.activatePackage("language-html");
-    await atom.packages.activatePackage("language-ruby-on-rails");
+    await lumine.packages.activatePackage("language-ruby");
+    await lumine.packages.activatePackage("language-html");
+    await lumine.packages.activatePackage("language-ruby-on-rails");
   });
 
   function fixture(name) {
@@ -36,7 +36,7 @@ describe("Rails sample fixtures", () => {
   // whichever grammar the first case left it with.
   function selectedFor(name) {
     const file = fixture(name);
-    return atom.grammars.selectGrammar(file, fs.readFileSync(file, "utf8"));
+    return lumine.grammars.selectGrammar(file, fs.readFileSync(file, "utf8"));
   }
 
   it("loads every grammar the package ships", () => {
@@ -46,12 +46,12 @@ describe("Rails sample fixtures", () => {
       "source.ruby.rails.rjs",
       "source.sql.ruby",
     ]) {
-      expect(atom.grammars.grammarForScopeName(scopeName)).toBeTruthy();
+      expect(lumine.grammars.grammarForScopeName(scopeName)).toBeTruthy();
     }
   });
 
   it("scopes the Rails DSL calls the plain Ruby grammar knows nothing about", () => {
-    const grammar = atom.grammars.grammarForScopeName("source.ruby.rails");
+    const grammar = lumine.grammars.grammarForScopeName("source.ruby.rails");
     const { tokens } = grammar.tokenizeLine("  has_many :orders, dependent: :destroy");
     const call = tokens.find((token) => token.value === "has_many");
 
@@ -60,13 +60,13 @@ describe("Rails sample fixtures", () => {
   });
 
   it("wins the file types language-ruby does not also claim", () => {
-    expect(atom.grammars.selectGrammar("report.rxml", "").scopeName).toBe("source.ruby.rails");
+    expect(lumine.grammars.selectGrammar("report.rxml", "").scopeName).toBe("source.ruby.rails");
   });
 
   it("wins .rjs, which is a Rails-only format", () => {
     // language-ruby used to claim `rjs` too, which made this a tie decided by
     // activation order.
-    expect(atom.grammars.selectGrammar("update.rjs", "page[:x]").scopeName).toBe(
+    expect(lumine.grammars.selectGrammar("update.rjs", "page[:x]").scopeName).toBe(
       "source.ruby.rails.rjs",
     );
   });
@@ -77,13 +77,13 @@ describe("Rails sample fixtures", () => {
     const railsView = "<%= link_to 'x', root_path %>\n";
     const plainErb = "<p>hello</p>\n";
 
-    beforeEach(() => atom.config.set("language.useTreeSitterParsers", false));
+    beforeEach(() => lumine.config.set("language.useTreeSitterParsers", false));
 
     it("claims a file that looks like Rails", () => {
-      expect(atom.grammars.selectGrammar("user.rb", railsModel).scopeName).toBe(
+      expect(lumine.grammars.selectGrammar("user.rb", railsModel).scopeName).toBe(
         "source.ruby.rails",
       );
-      expect(atom.grammars.selectGrammar("show.html.erb", railsView).scopeName).toBe(
+      expect(lumine.grammars.selectGrammar("show.html.erb", railsView).scopeName).toBe(
         "text.html.ruby",
       );
     });
@@ -91,15 +91,15 @@ describe("Rails sample fixtures", () => {
     it("leaves a file that does not", () => {
       // The content regex costs 0.05 when it fails, so plain Ruby and plain ERB
       // now lose this grammar rather than winning it on activation order.
-      expect(atom.grammars.selectGrammar("plain.rb", plainRuby).scopeName).toBe("source.ruby");
-      expect(atom.grammars.selectGrammar("page.html.erb", plainErb).scopeName).toBe(
+      expect(lumine.grammars.selectGrammar("plain.rb", plainRuby).scopeName).toBe("source.ruby");
+      expect(lumine.grammars.selectGrammar("page.html.erb", plainErb).scopeName).toBe(
         "text.html.erb",
       );
     });
   });
 
   describe("the sample files", () => {
-    beforeEach(() => atom.config.set("language.useTreeSitterParsers", true));
+    beforeEach(() => lumine.config.set("language.useTreeSitterParsers", true));
 
     it("open as plain Ruby and plain ERB, not as Rails", () => {
       expect(selectedFor("sample.rb").scopeName).toBe("source.ruby");
@@ -108,7 +108,7 @@ describe("Rails sample fixtures", () => {
 
     it("parse without error", async () => {
       for (const name of ["sample.rb", "sample.html.erb"]) {
-        const editor = await atom.workspace.open(fixture(name));
+        const editor = await lumine.workspace.open(fixture(name));
         const languageMode = editor.getBuffer().getLanguageMode();
         await languageMode.ready;
 
