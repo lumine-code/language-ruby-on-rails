@@ -1,7 +1,7 @@
 describe("Ruby on Rails package", () => {
-  beforeEach(() =>
-    waitsForPromise(() => lumine.packages.activatePackage("language-ruby-on-rails")),
-  );
+  beforeEach(async () => {
+    await lumine.packages.activatePackage("language-ruby-on-rails");
+  });
 
   it("parses the HTML grammar", () => {
     const grammar = lumine.grammars.grammarForScopeName("text.html.ruby");

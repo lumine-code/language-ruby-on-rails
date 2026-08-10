@@ -1,10 +1,10 @@
 describe("Ruby on Rails snippets", () => {
   let grammar = null;
 
-  beforeEach(() => {
-    waitsForPromise(() => lumine.packages.activatePackage("language-ruby-on-rails"));
+  beforeEach(async () => {
+    await lumine.packages.activatePackage("language-ruby-on-rails");
 
-    runs(() => (grammar = lumine.grammars.grammarForScopeName("source.ruby.rails")));
+    grammar = lumine.grammars.grammarForScopeName("source.ruby.rails");
   });
 
   it("tokenizes ActionMailer::Base", () => {
