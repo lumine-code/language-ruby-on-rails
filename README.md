@@ -10,7 +10,7 @@ Ruby on Rails language support.
 
 ## Installation
 
-To install `language-ruby-on-rails` search for _language-ruby-on-rails_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/language-ruby-on-rails`.
+To install `language-ruby-on-rails` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-ruby-on-rails`.
 
 ## Contributing
 
