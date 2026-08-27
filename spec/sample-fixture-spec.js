@@ -77,7 +77,7 @@ describe("Rails sample fixtures", () => {
     const railsView = "<%= link_to 'x', root_path %>\n";
     const plainErb = "<p>hello</p>\n";
 
-    beforeEach(() => lumine.config.set("language.useTreeSitterParsers", false));
+    beforeEach(() => lumine.config.set("editor.useTreeSitterParsers", false));
 
     it("claims a file that looks like Rails", () => {
       expect(lumine.grammars.selectGrammar("user.rb", railsModel).scopeName).toBe(
@@ -99,7 +99,7 @@ describe("Rails sample fixtures", () => {
   });
 
   describe("the sample files", () => {
-    beforeEach(() => lumine.config.set("language.useTreeSitterParsers", true));
+    beforeEach(() => lumine.config.set("editor.useTreeSitterParsers", true));
 
     it("open as plain Ruby and plain ERB, not as Rails", () => {
       expect(selectedFor("sample.rb").scopeName).toBe("source.ruby");
