@@ -1,0 +1,17 @@
+{
+  "name": "SQL ERB",
+  "scopeName": "source.sql.ruby",
+  "type": "tree-sitter",
+  "parser": "tree-sitter-embedded-template",
+  "fileTypes": ["erbsql", "sql.erb"],
+  "treeSitter": {
+    "parserSource": "github:tree-sitter/tree-sitter-embedded-template#v0.25.0",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
+    "grammar": "embedded-template.wasm",
+    "highlightsQuery": "embedded-template-highlights.scm",
+    "foldsQuery": "embedded-template-folds.scm"
+  },
+  "comments": {
+    "start": "-- "
+  }
+}

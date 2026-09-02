@@ -2,17 +2,21 @@
   "name": "language-ruby-on-rails",
   "author": "lumine-code",
   "version": "1.0.0",
+  "main": "lib/main",
   "description": "Ruby on Rails language support.",
   "keywords": [
+    "erbsql",
     "erb",
-    "rhtml",
     "activerecord",
-    "rb",
-    "jbuilder"
+    "jbuilder",
+    "javascript",
+    "sql",
+    "tree-sitter"
   ],
   "license": "MIT",
   "files": [
     "grammars",
+    "lib",
     "snippets",
     "spec"
   ],
@@ -21,7 +25,9 @@
     "node": ">=24"
   },
   "specPackages": [
-    "language-ruby"
+    "language-javascript",
+    "language-ruby",
+    "language-sql"
   ],
   "repository": "https://github.com/lumine-code/language-ruby-on-rails",
   "bugs": {

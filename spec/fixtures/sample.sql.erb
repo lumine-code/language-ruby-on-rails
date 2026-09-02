@@ -1,0 +1,7 @@
+SELECT id, email
+FROM users
+<% if active_only %>
+WHERE active = TRUE
+<% end %>
+ORDER BY id;
+<%# Report query %>

@@ -1,45 +1,26 @@
+const snippets = require("../snippets/main.json");
+
 describe("Ruby on Rails snippets", () => {
-  let grammar = null;
+  it("makes Rails DSL snippets available in canonical Ruby scopes", () => {
+    const rubySelectors = Object.keys(snippets).filter(
+      (selector) => selector.includes("meta.rails") || selector.includes("source.ruby.rails"),
+    );
 
-  beforeEach(async () => {
-    await lumine.packages.activatePackage("language-ruby-on-rails");
-
-    grammar = lumine.grammars.grammarForScopeName("source.ruby.rails");
+    expect(rubySelectors.length).toBeGreaterThan(0);
+    for (const selector of rubySelectors) expect(selector).toContain(".source.ruby");
   });
 
-  it("tokenizes ActionMailer::Base", () => {
-    const railsMailer = "class RailsMailer < ActionMailer::Base";
-    const { tokens } = grammar.tokenizeLine(railsMailer);
-    expect(tokens[0]).toEqual({
-      value: railsMailer,
-      scopes: ["source.ruby.rails", "meta.rails.mailer"],
-    });
+  it("targets the surviving ERB roots", () => {
+    const selectors = Object.keys(snippets).join(" ");
+    expect(selectors).toContain(".text.html.erb");
+    expect(selectors).toContain(".source.js.rails");
+    expect(selectors).toContain(".source.sql.ruby");
   });
 
-  it("tokenizes ApplicationMailer", () => {
-    const rails5Mailer = "class Rails5Mailer < ApplicationMailer";
-    const { tokens } = grammar.tokenizeLine(rails5Mailer);
-    expect(tokens[0]).toEqual({
-      value: rails5Mailer,
-      scopes: ["source.ruby.rails", "meta.rails.mailer"],
-    });
-  });
-
-  it("tokenizes ActiveRecord::Base", () => {
-    const railsModel = "class RailsModel < ActiveRecord::Base";
-    const { tokens } = grammar.tokenizeLine(railsModel);
-    expect(tokens[0]).toEqual({
-      value: railsModel,
-      scopes: ["source.ruby.rails", "meta.rails.model"],
-    });
-  });
-
-  it("tokenizes ApplicationRecord", () => {
-    const rails5Model = "class Rails5Model < ApplicationRecord";
-    const { tokens } = grammar.tokenizeLine(rails5Model);
-    expect(tokens[0]).toEqual({
-      value: rails5Model,
-      scopes: ["source.ruby.rails", "meta.rails.model"],
-    });
+  it("retains representative Rails and ERB snippets", () => {
+    const names = Object.values(snippets).flatMap((group) => Object.keys(group));
+    expect(names).toContain("Rails.logger.debug");
+    expect(names).toContain("resources");
+    expect(names).toContain("erb_render_block");
   });
 });

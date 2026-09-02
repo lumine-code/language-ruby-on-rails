@@ -4,9 +4,10 @@ Ruby on Rails language support.
 
 ## Features
 
-- **Grammars**: provides TextMate grammars derived from [atom/language-ruby-on-rails](https://github.com/atom/language-ruby-on-rails).
-- **Syntax highlighting**: full grammar coverage for Rails HTML, JavaScript, RJS, and SQL files.
-- **Snippets**: shortcuts for common Rails constructs.
+- **Grammars**: provides Tree-sitter wrappers built from [tree-sitter-embedded-template](https://github.com/tree-sitter/tree-sitter-embedded-template).
+- **Embedded languages**: parses Ruby directives inside JavaScript ERB and SQL ERB files while preserving their host language.
+- **Base formats**: delegates Ruby, RJS, Rails DSLs, and HTML ERB to their canonical language packages.
+- **Snippets**: provides shortcuts for common Rails, Ruby, and ERB constructs.
 
 ## Installation
 
