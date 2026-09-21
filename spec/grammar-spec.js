@@ -2,12 +2,13 @@ const path = require("path");
 const main = require("../lib/main");
 
 const fixture = (name) => path.join(__dirname, "fixtures", name);
+const packagePath = (name) => path.resolve(__dirname, "..", "..", name);
 
 describe("Ruby on Rails Tree-sitter wrappers", () => {
   beforeEach(async () => {
-    await lumine.packages.activatePackage("language-javascript");
-    await lumine.packages.activatePackage("language-ruby");
-    await lumine.packages.activatePackage("language-sql");
+    await lumine.packages.activatePackage(packagePath("language-javascript"));
+    await lumine.packages.activatePackage(packagePath("language-ruby"));
+    await lumine.packages.activatePackage(packagePath("language-sql"));
     await lumine.packages.activatePackage("language-ruby-on-rails");
   });
 
