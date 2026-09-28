@@ -46,7 +46,7 @@ describe("Ruby on Rails Tree-sitter wrappers", () => {
     };
 
     expect(editor.getGrammar().scopeName).toBe("source.js.rails");
-    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
     expect(scopesAt("const")).toContain("source.js");
     expect(scopesAt("current_user")).toContain("source.ruby");
     expect(scopesAt("enabled")).toContain("source.ruby");
@@ -67,7 +67,7 @@ describe("Ruby on Rails Tree-sitter wrappers", () => {
     };
 
     expect(editor.getGrammar().scopeName).toBe("source.sql.ruby");
-    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
     expect(scopesAt("SELECT")).toContain("source.sql");
     expect(scopesAt("active_only")).toContain("source.ruby");
     expect(scopesAt("Report")).toContain("comment.block.erb");
