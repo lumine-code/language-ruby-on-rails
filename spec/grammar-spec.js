@@ -1,5 +1,4 @@
 const path = require("path");
-const main = require("../lib/main");
 
 const fixture = (name) => path.join(__dirname, "fixtures", name);
 const packagePath = (name) => path.resolve(__dirname, "..", "..", name);
@@ -46,13 +45,20 @@ describe("Ruby on Rails Tree-sitter wrappers", () => {
     };
 
     expect(editor.getGrammar().scopeName).toBe("source.js.rails");
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
     expect(scopesAt("const")).toContain("source.js");
     expect(scopesAt("current_user")).toContain("source.ruby");
     expect(scopesAt("enabled")).toContain("source.ruby");
     expect(scopesAt("<%", 1)).toContain("punctuation.section.embedded.begin.erb");
     expect(scopesAt("<%=", 1)).toContain("punctuation.section.embedded.begin.erb");
     expect(scopesAt("Generated")).toContain("comment.block.erb");
+    for (const scopeName of ["source.ruby", "source.js"]) {
+      const layers = editor.languageMode
+        .getAllInjectionLayers()
+        .filter((layer) => layer.grammar.scopeName === scopeName);
+      expect(layers.length).toBe(1);
+      expect(layers[0].tree.rootNode.hasError).toBe(false);
+    }
   });
 
   it("injects Ruby directives and SQL content", async () => {
@@ -67,43 +73,16 @@ describe("Ruby on Rails Tree-sitter wrappers", () => {
     };
 
     expect(editor.getGrammar().scopeName).toBe("source.sql.ruby");
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
     expect(scopesAt("SELECT")).toContain("source.sql");
     expect(scopesAt("active_only")).toContain("source.ruby");
     expect(scopesAt("Report")).toContain("comment.block.erb");
-  });
-});
-
-describe("Ruby on Rails injection registration", () => {
-  it("registers exact Ruby and host-language injections for both wrappers", () => {
-    const points = [];
-    spyOn(lumine.grammars, "addInjectionPoint").and.callFake((scope, options) => {
-      points.push({ scope, options });
-    });
-
-    main.activate();
-
-    expect(points.length).toBe(4);
-    const node = {
-      descendantsOfType(type) {
-        return type === "code" ? [{ text: "user.name" }] : [{ text: "SELECT 1" }];
-      },
-    };
-
-    for (const [scope, contentLanguage] of [
-      ["source.js.rails", "javascript"],
-      ["source.sql.ruby", "sql"],
-    ]) {
-      const wrapperPoints = points.filter((point) => point.scope === scope);
-      const ruby = wrapperPoints.find((point) => point.options.language() === "ruby");
-      const content = wrapperPoints.find((point) => point.options.language() === contentLanguage);
-
-      expect(ruby.options.type).toBe("template");
-      expect(ruby.options.content(node)).toEqual([{ text: "user.name" }]);
-      expect(ruby.options.newlinesBetween).toBe(true);
-      expect(content.options.type).toBe("template");
-      expect(content.options.content(node)).toEqual([{ text: "SELECT 1" }]);
-      expect(content.options.newlinesBetween).toBeUndefined();
+    for (const scopeName of ["source.ruby", "source.sql"]) {
+      const layers = editor.languageMode
+        .getAllInjectionLayers()
+        .filter((layer) => layer.grammar.scopeName === scopeName);
+      expect(layers.length).toBe(1);
+      expect(layers[0].tree.rootNode.hasError).toBe(false);
     }
   });
 });

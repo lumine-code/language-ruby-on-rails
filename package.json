@@ -2,7 +2,6 @@
   "name": "language-ruby-on-rails",
   "author": "lumine-code",
   "version": "1.0.0",
-  "main": "lib/main",
   "description": "Ruby on Rails language support.",
   "keywords": [
     "erbsql",
@@ -16,7 +15,6 @@
   "license": "MIT",
   "files": [
     "grammars",
-    "lib",
     "snippets",
     "spec"
   ],
