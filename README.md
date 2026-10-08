@@ -2,6 +2,8 @@
 
 Ruby on Rails language support.
 
+Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/language-ruby-on-rails`).
+
 ## Features
 
 - **Grammars**: provides Tree-sitter wrappers built from [tree-sitter-embedded-template](https://github.com/tree-sitter/tree-sitter-embedded-template).
