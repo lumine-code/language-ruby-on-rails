@@ -1,0 +1,16 @@
+{
+  "title": "language-ruby-on-rails",
+  "description": "JavaScript ERB syntax highlighting in the editor.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "f21cb014c96b18e52dbca1fea1a4ed90e0bc6f36",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "JavaScript ERB syntax highlighting at the default editor font size.",
+      "width": 1100,
+      "height": 360
+    }
+  ]
+}

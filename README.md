@@ -11,6 +11,8 @@ Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/l
 - **Base formats**: delegates Ruby, RJS, Rails DSLs, and HTML ERB to their canonical language packages.
 - **Snippets**: provides shortcuts for common Rails, Ruby, and ERB constructs.
 
+![JavaScript ERB syntax highlighting at the default editor font size.](.github/demo.png)
+
 ## Installation
 
 To install `language-ruby-on-rails` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-ruby-on-rails`.
