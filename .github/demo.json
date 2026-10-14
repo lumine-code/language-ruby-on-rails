@@ -1,16 +1,61 @@
 {
   "title": "language-ruby-on-rails",
-  "description": "JavaScript ERB syntax highlighting in the editor.",
-  "recordedOn": "2026-10-13",
-  "sourceRevision": "f21cb014c96b18e52dbca1fea1a4ed90e0bc6f36",
+  "description": "JavaScript ERB syntax highlighting at the default editor font size.",
+  "recordedOn": "2026-10-14",
+  "sourceRevision": "73292af72b247dcd0fffde1481cf3d40fef25fa9",
+  "themeSourceRevision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
   "mode": "normal",
   "fontSettings": "default",
+  "scenario": "demo.js",
+  "recipeHash": "6128fef3fc45aebcba8e75c26516cb7574537a57d8773e3efdcb865c93915549",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "electron": "44.7.0",
+    "chrome": "152.0.7977.130",
+    "devicePixelRatio": 1,
+    "locale": "en-GB",
+    "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
+    "fontSize": 14,
+    "themes": ["one-day-syntax", "one-day-ui"]
+  },
+  "viewport": { "width": 1100, "height": 360 },
+  "cornerRadius": 10,
+  "sources": {
+    "editor": {
+      "revision": "0362a9fac7d6e153a768c0381800d6f3eb06647a",
+      "dirty": true,
+      "workingTreeHash": "1d75658a8b7d55a69c806a3786c562863bb9d5c71cbf96b3084c6a78c0d648b4"
+    },
+    "package": {
+      "revision": "73292af72b247dcd0fffde1481cf3d40fef25fa9",
+      "dirty": true,
+      "workingTreeHash": "ed7c417db6a00409870c8f0429b96572e6021ef0f7114452375dab0424e8effb"
+    },
+    "language-ruby-on-rails": {
+      "revision": "73292af72b247dcd0fffde1481cf3d40fef25fa9",
+      "dirty": true,
+      "workingTreeHash": "ed7c417db6a00409870c8f0429b96572e6021ef0f7114452375dab0424e8effb"
+    },
+    "one-theme": {
+      "revision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
+      "dirty": true,
+      "workingTreeHash": "50ec2f83a6347dd8113870992ec4eb2be4014f3d9e12213c2f51b543f1eca793"
+    }
+  },
+  "fixtures": [
+    {
+      "file": "example.js.erb",
+      "sha256": "53ccee6b4d8941229cbb0e9305e1d8f21429ffce5a88ae9aae5fc14a68f51c63"
+    }
+  ],
   "images": [
     {
       "file": "demo.png",
       "label": "JavaScript ERB syntax highlighting at the default editor font size.",
       "width": 1100,
-      "height": 360
+      "height": 360,
+      "sha256": "e436c23e79133d91e79d68117c8374a1d1d801a3e7f6f9c0a20bde1e2c767770"
     }
   ]
 }
