@@ -1,0 +1,20 @@
+{
+  ".source.js.rails": {
+    "editor": {
+      "commentStart": "// ",
+      "commentDelimiters": {
+        "line": "//",
+        "block": ["/*", "*/"]
+      }
+    }
+  },
+  ".source.sql.ruby": {
+    "editor": {
+      "commentStart": "-- ",
+      "commentDelimiters": {
+        "line": "--",
+        "block": ["/*", "*/"]
+      }
+    }
+  }
+}

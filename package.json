@@ -16,6 +16,7 @@
   "files": [
     "grammars",
     "snippets",
+    "settings",
     "spec",
     "THIRD_PARTY_NOTICES"
   ],
@@ -26,7 +27,8 @@
   "specPackages": [
     "language-javascript",
     "language-ruby",
-    "language-sql"
+    "language-sql",
+    "language-source"
   ],
   "repository": "https://github.com/lumine-code/language-ruby-on-rails",
   "bugs": {
