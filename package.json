@@ -15,6 +15,7 @@
   "license": "MIT",
   "files": [
     "grammars",
+    "lib",
     "snippets",
     "settings",
     "spec",
