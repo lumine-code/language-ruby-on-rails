@@ -83,6 +83,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Source: https://github.com/tree-sitter/tree-sitter-embedded-template
 Revision: v0.25.0
 
+Parser source: github:tree-sitter/tree-sitter-embedded-template#v0.25.0
+Resolved commit: c70c1de07dedd532089c0c90835c8ed9fa694f5c
+
 Original file: LICENSE
 
 The MIT License (MIT)
